@@ -1,0 +1,21 @@
+# .bashrc
+
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+	. /etc/bashrc
+fi
+
+# User specific aliases and functions
+
+# File Redirection will not overwrite existing files
+set -o noclobber
+
+alias rm='rm -i'
+alias mv='mv -i'
+alias cp='cp -i'
+alias gdb='gdb -q'
+# force tmux to assume terminal supports 256 colors
+alias tmux='tmux -2'
+
+export EDITOR='vim'
+#export PS1='\[\033[01;32m\]\u@\h\[\033[01;34m\] \w \$\[\033[00m\] '

@@ -1,0 +1,10 @@
+set number
+set ignorecase
+set smartcase
+set nohlsearch
+
+syntax enable
+filetype plugin indent on
+
+set sw=2
+set expandtab
