@@ -14,13 +14,13 @@ backup=backup-$(date +%s)
 # backup existing hidden file and create symlink
 function directReplace()
 {
-  fromDirPath=$1
-  toDirPath=$2
+  local fromDirPath=$1
+  local toDirPath=$2
 
   for fromPath in $fromDirPath/*; do
-    fromName=$(basename $fromPath)
-    toName=.$fromName
-    toPath=$toDirPath/$toName
+    local fromName=$(basename $fromPath)
+    local toName=.$fromName
+    local toPath=$toDirPath/$toName
     if [ -f $toPath ]; then
       info "backing up $toPath in $backup"
       mkdir -p $backup
@@ -29,6 +29,20 @@ function directReplace()
     info "creating link $toPath"
     ln -s $fromPath $toPath
   done
+}
+
+function forVim()
+{
+  local toDirPath=$1
+  local toVimPath=$toDirPath/.vim/
+  if [ -d $toVimPath ]; then
+    info "backing up $toVimPath in $backup"
+    mkdir -p $backup
+    mv $toVimPath $backup
+  fi
+  curl -fLo .vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  vim +PlugInstall +qall
 }
 
 if [ "$#" -lt 1 ]; then
@@ -47,3 +61,4 @@ fi
 
 info "installing from $repoPath to $toPath"
 directReplace $repoPath/files $toPath
+forVim $toPath
