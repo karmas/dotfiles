@@ -17,8 +17,6 @@ alias gdb='gdb -q'
 # force tmux to assume terminal supports 256 colors
 alias tmux='tmux -2'
 
-# tmux expects vi for vi mode keys
-# probably other programs too
-export EDITOR='vi'
+export EDITOR='vim'
 
 #export PS1='\[\033[01;32m\]\u@\h\[\033[01;34m\] \w \$\[\033[00m\] '
