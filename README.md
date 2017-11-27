@@ -7,4 +7,4 @@ install in home directory
 ```
 [vagrant@cent ~]$ dotfiles/install.sh .
 ```
-symlinks are installed to repo
+symlinks to repo are installed

@@ -11,16 +11,13 @@ function errorExit()
 
 backup=backup-$(date +%s)
 
-# backup existing hidden file and create symlink
 function directReplace()
 {
   local fromDirPath=$1
-  local toDirPath=$2
-
   for fromPath in $fromDirPath/*; do
     local fromName=$(basename $fromPath)
     local toName=.$fromName
-    local toPath=$toDirPath/$toName
+    local toPath=$installPath/$toName
     if [ -f $toPath ]; then
       info "backing up $toPath in $backup"
       mkdir -p $backup
@@ -33,8 +30,7 @@ function directReplace()
 
 function forVim()
 {
-  local toDirPath=$1
-  local toVimPath=$toDirPath/.vim/
+  local toVimPath=$installPath/.vim/
   if [ -d $toVimPath ]; then
     info "backing up $toVimPath in $backup"
     mkdir -p $backup
@@ -43,6 +39,12 @@ function forVim()
   curl -fLo .vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   vim +PlugInstall +qall
+
+  local toIndentPath=.vim/indent
+  mkdir -p $toIndentPath
+  local toPath=$toIndentPath/cpp.vim
+  info "creating link $toPath"
+  ln -s $repoPath/files/cpp.vim $toPath
 }
 
 if [ "$#" -lt 1 ]; then
@@ -53,12 +55,11 @@ fi
 
 absPath=$(readlink -f $0)
 repoPath=${absPath%install.sh}
-toPath=$(readlink -f $1)
+installPath=$(readlink -f $1)
 
-if [ ! -d "$toPath" ]; then
-  errorExit "not a valid install path '$toPath'"
+if [ ! -d "$installPath" ]; then
+  errorExit "not a valid install path '$installPath'"
 fi
 
-info "installing from $repoPath to $toPath"
-directReplace $repoPath/files $toPath
-forVim $toPath
+directReplace $repoPath/files
+forVim
