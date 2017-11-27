@@ -18,12 +18,12 @@ function directReplace()
     local fromName=$(basename $fromPath)
     local toName=.$fromName
     local toPath=$installPath/$toName
-    if [ -f $toPath ]; then
+    if [ -f $toPath -o -h $toPath ]; then
       info "backing up $toPath in $backup"
       mkdir -p $backup
       mv $toPath $backup
     fi
-    info "creating link $toPath"
+    info "creating link $toPath -> $fromPath"
     ln -s $fromPath $toPath
   done
 }
@@ -42,9 +42,10 @@ function forVim()
 
   local toIndentPath=.vim/indent
   mkdir -p $toIndentPath
+  local fromPath=$repoPath/forvim/cpp.vim
   local toPath=$toIndentPath/cpp.vim
-  info "creating link $toPath"
-  ln -s $repoPath/files/cpp.vim $toPath
+  info "creating link $toPath -> $fromPath"
+  ln -s $fromPath $toPath
 }
 
 if [ "$#" -lt 1 ]; then
@@ -61,5 +62,5 @@ if [ ! -d "$installPath" ]; then
   errorExit "not a valid install path '$installPath'"
 fi
 
-directReplace $repoPath/files
+directReplace $repoPath/forhome
 forVim

@@ -1,0 +1,62 @@
+"vim-plug
+call plug#begin('~/.vim/plugged')
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'tpope/vim-fugitive'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+Plug 'itchyny/lightline.vim'
+Plug 'dracula/vim'
+Plug 'sickill/vim-monokai'
+call plug#end()
+
+" use vim settings rather than vi settings
+"set backspace=2
+"set nocompatible              " be iMproved, required
+syntax enable
+filetype plugin indent on
+
+set number
+set ignorecase " case insensitive search
+set smartcase
+set nohlsearch " don't highlight search results
+set ruler " show line number and cursor position
+set showcmd " display incomplete commands at bottom
+set wildmenu " shows autocomplete menu
+set showmode " shows editing mode
+
+" indentation settings
+set autoindent
+set shiftwidth=2
+set expandtab
+set tabstop=2
+set textwidth=79
+" v 7.3 onwards
+if exists('+colorcolumn')
+  set colorcolumn=80
+else
+  " highlight from 80th
+  "au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>79v.\+', -1)
+  " highlight only 80th column
+  " 2mat ErrorMsg '\%80v.'
+  au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%80v', -1)
+endif
+
+" status line settings
+set laststatus=2 " always show status line
+
+set background=dark
+set t_Co=256
+colorscheme dracula
+
+" IDE settings for coding
+"set ofu=syntaxcomplete#Complete
+set cscopetagorder=1 "forces tag file to be checked before cscope database
+set csto=1 "forces tag file to be checked before cscope database
+set cscopequickfix=s-,c-,d-,i-,t-,e- "use quickfix list to hold result
+
+" ctrlp options
+" search from cwd
+let g:ctrlp_working_path_mode = 'a'
+" exclude from search
+set wildignore+=*.o,*.so,*.a,*.pyc,*/.git/*,tags
