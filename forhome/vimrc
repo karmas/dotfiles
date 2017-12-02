@@ -3,11 +3,14 @@ call plug#begin('~/.vim/plugged')
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'tpope/vim-fugitive'
-Plug 'SirVer/ultisnips'
+Plug 'MarcWeber/vim-addon-mw-utils'
+Plug 'tomtom/tlib_vim'
+Plug 'garbas/vim-snipmate'
 Plug 'honza/vim-snippets'
 Plug 'itchyny/lightline.vim'
 Plug 'dracula/vim'
 Plug 'sickill/vim-monokai'
+Plug 'altercation/vim-colors-solarized'
 call plug#end()
 
 " use vim settings rather than vi settings
@@ -47,7 +50,8 @@ set laststatus=2 " always show status line
 
 set background=dark
 set t_Co=256
-colorscheme dracula
+let g:solarized_termcolors=256
+colorscheme solarized
 
 " IDE settings for coding
 "set ofu=syntaxcomplete#Complete

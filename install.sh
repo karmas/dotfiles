@@ -64,3 +64,5 @@ fi
 
 directReplace $repoPath/forhome
 forVim
+
+info "sample gitconfig file in $repoPath/tocopy/gitconfig"
