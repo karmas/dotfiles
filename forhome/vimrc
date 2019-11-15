@@ -8,18 +8,18 @@ Plug 'tomtom/tlib_vim'
 Plug 'garbas/vim-snipmate'
 Plug 'honza/vim-snippets'
 Plug 'itchyny/lightline.vim'
-Plug 'dracula/vim'
 Plug 'sickill/vim-monokai'
 Plug 'altercation/vim-colors-solarized'
+Plug 'Vimjas/vim-python-pep8-indent'
+Plug 'morhetz/gruvbox'
 call plug#end()
 
 " use vim settings rather than vi settings
-"set backspace=2
+set backspace=2
 "set nocompatible              " be iMproved, required
 syntax enable
 filetype plugin indent on
 
-set number
 set ignorecase " case insensitive search
 set smartcase
 set nohlsearch " don't highlight search results
@@ -51,16 +51,14 @@ set laststatus=2 " always show status line
 set background=dark
 set t_Co=256
 let g:solarized_termcolors=256
-colorscheme solarized
-
-" IDE settings for coding
-"set ofu=syntaxcomplete#Complete
-set cscopetagorder=1 "forces tag file to be checked before cscope database
-set csto=1 "forces tag file to be checked before cscope database
-set cscopequickfix=s-,c-,d-,i-,t-,e- "use quickfix list to hold result
+colorscheme gruvbox
 
 " ctrlp options
 " search from cwd
 let g:ctrlp_working_path_mode = 'a'
 " exclude from search
 set wildignore+=*.o,*.so,*.a,*.pyc,*/.git/*,tags
+
+au Filetype python setlocal shiftwidth=2 tabstop=2
+
+au FileType markdown setlocal syntax=OFF

@@ -1,15 +1,17 @@
+#! /bin/bash
+
 function info()
 {
-  echo "(info) $*"
+  echo :info: $*
 }
 
 function errorExit()
 {
-  echo "(error) $*"
+  echo :error: $*
   exit 2
 }
 
-backup=backup-$(date +%s)
+backup=backup-$(date +%T).tmp
 
 function directReplace()
 {
@@ -19,11 +21,11 @@ function directReplace()
     local toName=.$fromName
     local toPath=$installPath/$toName
     if [ -f $toPath -o -h $toPath ]; then
-      info "backing up $toPath in $backup"
+      info "backup $toPath in $backup"
       mkdir -p $backup
       mv $toPath $backup
     fi
-    info "creating link $toPath -> $fromPath"
+    info "link $toPath -> $fromPath"
     ln -s $fromPath $toPath
   done
 }
@@ -32,34 +34,35 @@ function forVim()
 {
   local toVimPath=$installPath/.vim/
   if [ -d $toVimPath ]; then
-    info "backing up $toVimPath in $backup"
+    info "backup $toVimPath in $backup"
     mkdir -p $backup
     mv $toVimPath $backup
   fi
-  curl -fLo .vim/autoload/plug.vim --create-dirs \
+
+  curl -fLo $installPath/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   vim +PlugInstall +qall
 
-  local toIndentPath=.vim/indent
+  local toIndentPath=$installPath/.vim/indent
   mkdir -p $toIndentPath
   local fromPath=$repoPath/forvim/cpp.vim
   local toPath=$toIndentPath/cpp.vim
-  info "creating link $toPath -> $fromPath"
+  info "link $toPath -> $fromPath"
   ln -s $fromPath $toPath
 }
 
 if [ "$#" -lt 1 ]; then
-  echo "usage: $(basename $0) install_path"
+  echo "usage: $(basename $0) install-dir"
   echo "  install in your home directory"
   exit 1
 fi
 
-absPath=$(readlink -f $0)
+absPath=$(readlink -vf $0)
 repoPath=${absPath%install.sh}
-installPath=$(readlink -f $1)
+installPath=$(readlink -vf $1)
 
 if [ ! -d "$installPath" ]; then
-  errorExit "not a valid install path '$installPath'"
+  errorExit "install directory not found '$installPath'"
 fi
 
 directReplace $repoPath/forhome
