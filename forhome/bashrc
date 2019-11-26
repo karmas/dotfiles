@@ -10,6 +10,7 @@ fi
 # File Redirection will not overwrite existing files
 set -o noclobber
 
+alias ls='ls -G'
 alias rm='rm -i'
 alias mv='mv -i'
 alias cp='cp -i'

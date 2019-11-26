@@ -57,9 +57,8 @@ if [ "$#" -lt 1 ]; then
   exit 1
 fi
 
-absPath=$(readlink -vf $0)
-repoPath=${absPath%install.sh}
-installPath=$(readlink -vf $1)
+repoPath=${0%install.sh}
+installPath=$1
 
 if [ ! -d "$installPath" ]; then
   errorExit "install directory not found '$installPath'"

@@ -48,9 +48,6 @@ endif
 " status line settings
 set laststatus=2 " always show status line
 
-set background=dark
-set t_Co=256
-let g:solarized_termcolors=256
 colorscheme gruvbox
 
 " ctrlp options
