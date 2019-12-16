@@ -59,6 +59,4 @@ let g:ctrlp_working_path_mode = 'a'
 " exclude from search
 set wildignore+=*.o,*.so,*.a,*.pyc,*/.git/*,tags
 
-au Filetype python setlocal shiftwidth=2 tabstop=2
-
 au FileType markdown setlocal syntax=OFF
