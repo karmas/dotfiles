@@ -12,6 +12,7 @@ Plug 'sickill/vim-monokai'
 Plug 'altercation/vim-colors-solarized'
 Plug 'Vimjas/vim-python-pep8-indent'
 Plug 'morhetz/gruvbox'
+Plug 'dense-analysis/ale'
 call plug#end()
 
 " use vim settings rather than vi settings
@@ -20,6 +21,7 @@ set backspace=2
 syntax enable
 filetype plugin indent on
 
+set number
 set ignorecase " case insensitive search
 set smartcase
 set nohlsearch " don't highlight search results
