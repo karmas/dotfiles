@@ -59,6 +59,12 @@ colorscheme gruvbox
 " search from cwd
 let g:ctrlp_working_path_mode = 'a'
 " exclude from search
-set wildignore+=*.o,*.so,*.a,*.pyc,*/.git/*,tags
+set wildignore+=*.o,*.so,*.a,*.pyc,*/.git/*,tags,target,venv
 
 au FileType markdown setlocal syntax=OFF
+
+let g:ale_enabled = 0
+let g:ale_linters = {
+\   'python': ['flake8'],
+\}
+
