@@ -21,6 +21,7 @@ alias gdb='gdb -q'
 alias grep='grep --color'
 # force tmux to assume terminal supports 256 colors
 alias tmux='tmux -2'
+alias vi='vim'
 
 export EDITOR='vim'
 

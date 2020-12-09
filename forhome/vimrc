@@ -64,6 +64,7 @@ set wildignore+=*.o,*.so,*.a,*.pyc,*/.git/*,tags,target,venv
 au FileType markdown setlocal syntax=OFF
 
 let g:ale_enabled = 0
+let g:ale_disable_lsp = 1
 let g:ale_linters = {
 \   'python': ['flake8'],
 \}
